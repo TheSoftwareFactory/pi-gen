@@ -1,6 +1,6 @@
 # pi-gen
 
-_Tool used to create the raspberrypi.org Raspbian images_
+_Tool used to create Pulurobot Raspbian images (based on the raspberrypi.org Raspbian image generator_
 
 
 ## Dependencies
