@@ -249,3 +249,28 @@ follows:
  * Once you're happy with the image you can remove the SKIP_IMAGES files and
    export your image to test
 
+## Running in QEMU
+
+To run a virtual Raspberry Pi, you need the ```qemu-system-arm``` package.
+
+Copy the zipped image file and the kernel image from the deploy directory to the machine where QEMU is to run. Unzip the image file and use the following steps to convert it and (optionally) expand the image:
+
+```bash
+unzip <raw_image_file>
+qemu-img convert -f raw -O qcow2 <raw_image_file> <system_image_file>
+qemu-img resize <system_image_file> +6G
+```
+
+Next, start QEMU:
+
+```bash
+sudo qemu-system-arm \
+    -kernel <kernel_image_file> \
+    -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" \
+    -hda <system_image_file> \
+    -cpu arm1176 -m 256 \
+    -machine versatilepb \
+    -no-reboot \
+    -serial stdio \
+    -net nic -net tap
+```
